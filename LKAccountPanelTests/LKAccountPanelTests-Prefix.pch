@@ -1,0 +1,7 @@
+//
+// Prefix header for all source files of the 'LKAccountPanelTests' target in the 'LKAccountPanelTests' project
+//
+
+#ifdef __OBJC__
+    #import <UIKit/UIKit.h>
+#endif

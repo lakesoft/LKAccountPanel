@@ -1,0 +1,440 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		4C9D49631376D55000D87ADD /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C9D49621376D55000D87ADD /* UIKit.framework */; };
+		4C9D49651376D55000D87ADD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C9D49641376D55000D87ADD /* Foundation.framework */; };
+		4C9D49671376D55000D87ADD /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C9D49661376D55000D87ADD /* CoreGraphics.framework */; };
+		4C9D496D1376D55000D87ADD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4C9D496B1376D55000D87ADD /* InfoPlist.strings */; };
+		4C9D49701376D55000D87ADD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C9D496F1376D55000D87ADD /* main.m */; };
+		4C9D49731376D55000D87ADD /* LKAccountPanelAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C9D49721376D55000D87ADD /* LKAccountPanelAppDelegate.m */; };
+		4C9D49761376D55000D87ADD /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C9D49741376D55000D87ADD /* MainWindow.xib */; };
+		4C9D497D1376D55000D87ADD /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C9D49621376D55000D87ADD /* UIKit.framework */; };
+		4C9D497E1376D55000D87ADD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C9D49641376D55000D87ADD /* Foundation.framework */; };
+		4C9D497F1376D55000D87ADD /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C9D49661376D55000D87ADD /* CoreGraphics.framework */; };
+		4C9D49871376D55000D87ADD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4C9D49851376D55000D87ADD /* InfoPlist.strings */; };
+		4C9D498A1376D55000D87ADD /* LKAccountPanelTests.h in Resources */ = {isa = PBXBuildFile; fileRef = 4C9D49891376D55000D87ADD /* LKAccountPanelTests.h */; };
+		4C9D498C1376D55000D87ADD /* LKAccountPanelTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C9D498B1376D55000D87ADD /* LKAccountPanelTests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		4C9D49801376D55000D87ADD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4C9D49551376D54F00D87ADD /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4C9D495D1376D54F00D87ADD;
+			remoteInfo = LKAccountPanel;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		4C9D495E1376D55000D87ADD /* LKAccountPanel.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LKAccountPanel.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4C9D49621376D55000D87ADD /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		4C9D49641376D55000D87ADD /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		4C9D49661376D55000D87ADD /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		4C9D496A1376D55000D87ADD /* LKAccountPanel-Info.plist */ = {isa = PBXFileReference; path = "LKAccountPanel-Info.plist"; sourceTree = "<group>"; };
+		4C9D496C1376D55000D87ADD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		4C9D496E1376D55000D87ADD /* LKAccountPanel-Prefix.pch */ = {isa = PBXFileReference; path = "LKAccountPanel-Prefix.pch"; sourceTree = "<group>"; };
+		4C9D496F1376D55000D87ADD /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		4C9D49711376D55000D87ADD /* LKAccountPanelAppDelegate.h */ = {isa = PBXFileReference; path = LKAccountPanelAppDelegate.h; sourceTree = "<group>"; };
+		4C9D49721376D55000D87ADD /* LKAccountPanelAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LKAccountPanelAppDelegate.m; sourceTree = "<group>"; };
+		4C9D49751376D55000D87ADD /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainWindow.xib; sourceTree = "<group>"; };
+		4C9D497C1376D55000D87ADD /* LKAccountPanelTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LKAccountPanelTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		4C9D49841376D55000D87ADD /* LKAccountPanelTests-Info.plist */ = {isa = PBXFileReference; path = "LKAccountPanelTests-Info.plist"; sourceTree = "<group>"; };
+		4C9D49861376D55000D87ADD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		4C9D49881376D55000D87ADD /* LKAccountPanelTests-Prefix.pch */ = {isa = PBXFileReference; path = "LKAccountPanelTests-Prefix.pch"; sourceTree = "<group>"; };
+		4C9D49891376D55000D87ADD /* LKAccountPanelTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LKAccountPanelTests.h; sourceTree = "<group>"; };
+		4C9D498B1376D55000D87ADD /* LKAccountPanelTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LKAccountPanelTests.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		4C9D495B1376D54F00D87ADD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4C9D49631376D55000D87ADD /* UIKit.framework in Frameworks */,
+				4C9D49651376D55000D87ADD /* Foundation.framework in Frameworks */,
+				4C9D49671376D55000D87ADD /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4C9D49781376D55000D87ADD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4C9D497D1376D55000D87ADD /* UIKit.framework in Frameworks */,
+				4C9D497E1376D55000D87ADD /* Foundation.framework in Frameworks */,
+				4C9D497F1376D55000D87ADD /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		4C9D49531376D54F00D87ADD = {
+			isa = PBXGroup;
+			children = (
+				4C9D49681376D55000D87ADD /* LKAccountPanel */,
+				4C9D49821376D55000D87ADD /* LKAccountPanelTests */,
+				4C9D49611376D55000D87ADD /* Frameworks */,
+				4C9D495F1376D55000D87ADD /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		4C9D495F1376D55000D87ADD /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				4C9D495E1376D55000D87ADD /* LKAccountPanel.app */,
+				4C9D497C1376D55000D87ADD /* LKAccountPanelTests.octest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		4C9D49611376D55000D87ADD /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4C9D49621376D55000D87ADD /* UIKit.framework */,
+				4C9D49641376D55000D87ADD /* Foundation.framework */,
+				4C9D49661376D55000D87ADD /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		4C9D49681376D55000D87ADD /* LKAccountPanel */ = {
+			isa = PBXGroup;
+			children = (
+				4C9D49711376D55000D87ADD /* LKAccountPanelAppDelegate.h */,
+				4C9D49721376D55000D87ADD /* LKAccountPanelAppDelegate.m */,
+				4C9D49741376D55000D87ADD /* MainWindow.xib */,
+				4C9D49691376D55000D87ADD /* Supporting Files */,
+			);
+			path = LKAccountPanel;
+			sourceTree = "<group>";
+		};
+		4C9D49691376D55000D87ADD /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				4C9D496A1376D55000D87ADD /* LKAccountPanel-Info.plist */,
+				4C9D496B1376D55000D87ADD /* InfoPlist.strings */,
+				4C9D496E1376D55000D87ADD /* LKAccountPanel-Prefix.pch */,
+				4C9D496F1376D55000D87ADD /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		4C9D49821376D55000D87ADD /* LKAccountPanelTests */ = {
+			isa = PBXGroup;
+			children = (
+				4C9D49891376D55000D87ADD /* LKAccountPanelTests.h */,
+				4C9D498B1376D55000D87ADD /* LKAccountPanelTests.m */,
+				4C9D49831376D55000D87ADD /* Supporting Files */,
+			);
+			path = LKAccountPanelTests;
+			sourceTree = "<group>";
+		};
+		4C9D49831376D55000D87ADD /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				4C9D49841376D55000D87ADD /* LKAccountPanelTests-Info.plist */,
+				4C9D49851376D55000D87ADD /* InfoPlist.strings */,
+				4C9D49881376D55000D87ADD /* LKAccountPanelTests-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		4C9D495D1376D54F00D87ADD /* LKAccountPanel */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4C9D498F1376D55000D87ADD /* Build configuration list for PBXNativeTarget "LKAccountPanel" */;
+			buildPhases = (
+				4C9D495A1376D54F00D87ADD /* Sources */,
+				4C9D495B1376D54F00D87ADD /* Frameworks */,
+				4C9D495C1376D54F00D87ADD /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = LKAccountPanel;
+			productName = LKAccountPanel;
+			productReference = 4C9D495E1376D55000D87ADD /* LKAccountPanel.app */;
+			productType = "com.apple.product-type.application";
+		};
+		4C9D497B1376D55000D87ADD /* LKAccountPanelTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4C9D49921376D55000D87ADD /* Build configuration list for PBXNativeTarget "LKAccountPanelTests" */;
+			buildPhases = (
+				4C9D49771376D55000D87ADD /* Sources */,
+				4C9D49781376D55000D87ADD /* Frameworks */,
+				4C9D49791376D55000D87ADD /* Resources */,
+				4C9D497A1376D55000D87ADD /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				4C9D49811376D55000D87ADD /* PBXTargetDependency */,
+			);
+			name = LKAccountPanelTests;
+			productName = LKAccountPanelTests;
+			productReference = 4C9D497C1376D55000D87ADD /* LKAccountPanelTests.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		4C9D49551376D54F00D87ADD /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = 4C9D49581376D54F00D87ADD /* Build configuration list for PBXProject "LKAccountPanel" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 4C9D49531376D54F00D87ADD;
+			productRefGroup = 4C9D495F1376D55000D87ADD /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				4C9D495D1376D54F00D87ADD /* LKAccountPanel */,
+				4C9D497B1376D55000D87ADD /* LKAccountPanelTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		4C9D495C1376D54F00D87ADD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4C9D496D1376D55000D87ADD /* InfoPlist.strings in Resources */,
+				4C9D49761376D55000D87ADD /* MainWindow.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4C9D49791376D55000D87ADD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4C9D49871376D55000D87ADD /* InfoPlist.strings in Resources */,
+				4C9D498A1376D55000D87ADD /* LKAccountPanelTests.h in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		4C9D497A1376D55000D87ADD /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		4C9D495A1376D54F00D87ADD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4C9D49701376D55000D87ADD /* main.m in Sources */,
+				4C9D49731376D55000D87ADD /* LKAccountPanelAppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4C9D49771376D55000D87ADD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4C9D498C1376D55000D87ADD /* LKAccountPanelTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		4C9D49811376D55000D87ADD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4C9D495D1376D54F00D87ADD /* LKAccountPanel */;
+			targetProxy = 4C9D49801376D55000D87ADD /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		4C9D496B1376D55000D87ADD /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4C9D496C1376D55000D87ADD /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		4C9D49741376D55000D87ADD /* MainWindow.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4C9D49751376D55000D87ADD /* en */,
+			);
+			name = MainWindow.xib;
+			sourceTree = "<group>";
+		};
+		4C9D49851376D55000D87ADD /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4C9D49861376D55000D87ADD /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		4C9D498D1376D55000D87ADD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		4C9D498E1376D55000D87ADD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+			};
+			name = Release;
+		};
+		4C9D49901376D55000D87ADD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "LKAccountPanel/LKAccountPanel-Prefix.pch";
+				INFOPLIST_FILE = "LKAccountPanel/LKAccountPanel-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		4C9D49911376D55000D87ADD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "LKAccountPanel/LKAccountPanel-Prefix.pch";
+				INFOPLIST_FILE = "LKAccountPanel/LKAccountPanel-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				VALIDATE_PRODUCT = YES;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		4C9D49931376D55000D87ADD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/LKAccountPanel.app/LKAccountPanel";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "LKAccountPanelTests/LKAccountPanelTests-Prefix.pch";
+				INFOPLIST_FILE = "LKAccountPanelTests/LKAccountPanelTests-Info.plist";
+				OTHER_LDFLAGS = (
+					"-framework",
+					SenTestingKit,
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		4C9D49941376D55000D87ADD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/LKAccountPanel.app/LKAccountPanel";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "LKAccountPanelTests/LKAccountPanelTests-Prefix.pch";
+				INFOPLIST_FILE = "LKAccountPanelTests/LKAccountPanelTests-Info.plist";
+				OTHER_LDFLAGS = (
+					"-framework",
+					SenTestingKit,
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		4C9D49581376D54F00D87ADD /* Build configuration list for PBXProject "LKAccountPanel" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4C9D498D1376D55000D87ADD /* Debug */,
+				4C9D498E1376D55000D87ADD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4C9D498F1376D55000D87ADD /* Build configuration list for PBXNativeTarget "LKAccountPanel" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4C9D49901376D55000D87ADD /* Debug */,
+				4C9D49911376D55000D87ADD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		4C9D49921376D55000D87ADD /* Build configuration list for PBXNativeTarget "LKAccountPanelTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4C9D49931376D55000D87ADD /* Debug */,
+				4C9D49941376D55000D87ADD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 4C9D49551376D54F00D87ADD /* Project object */;
+}
