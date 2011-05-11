@@ -25,6 +25,11 @@ Customize
 
 You can change the placeholder label and the button label. Edit LKAccountPanel.strings file in each localized directory.
 
+	"OK" = "OK";
+	"Cancel" = "Cancel";
+	"Username" = "Username";
+	"Password" = "Password";
+
 
 Installation
 -----------
