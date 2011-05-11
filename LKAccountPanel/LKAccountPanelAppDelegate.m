@@ -7,6 +7,7 @@
 //
 
 #import "LKAccountPanelAppDelegate.h"
+#import "LKAccountPanel.h"
 
 @implementation LKAccountPanelAppDelegate
 
@@ -63,6 +64,15 @@
 {
     [_window release];
     [super dealloc];
+}
+
+- (IBAction)showAlert:(id)sender
+{
+    [LKAccountPanel showWithTitle:@"Test"
+                       completion:^(BOOL result, NSString* username, NSString* password) {
+                           NSLog(@"result: %d\nusername: %@\npassword: %@",
+                                 result, username, password);
+                       }];
 }
 
 @end

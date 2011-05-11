@@ -1,0 +1,12 @@
+/* 
+  LKAccountPanel.strings
+  LKAccountPanel
+
+  Created by Hiroshi Hashiguchi on 11/05/08.
+  Copyright 2011 __MyCompanyName__. All rights reserved.
+*/
+
+"OK" = "OK";
+"Cancel" = "Cancel";
+"Username" = "Username";
+"Password" = "Password";

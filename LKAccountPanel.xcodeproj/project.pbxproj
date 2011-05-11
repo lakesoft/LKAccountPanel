@@ -20,6 +20,8 @@
 		4C9D49871376D55000D87ADD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4C9D49851376D55000D87ADD /* InfoPlist.strings */; };
 		4C9D498A1376D55000D87ADD /* LKAccountPanelTests.h in Resources */ = {isa = PBXBuildFile; fileRef = 4C9D49891376D55000D87ADD /* LKAccountPanelTests.h */; };
 		4C9D498C1376D55000D87ADD /* LKAccountPanelTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C9D498B1376D55000D87ADD /* LKAccountPanelTests.m */; };
+		4C9D49971376D56B00D87ADD /* LKAccountPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C9D49961376D56B00D87ADD /* LKAccountPanel.m */; };
+		4C9D499A1376DCB000D87ADD /* LKAccountPanel.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4C9D499C1376DCB000D87ADD /* LKAccountPanel.strings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,19 +39,23 @@
 		4C9D49621376D55000D87ADD /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		4C9D49641376D55000D87ADD /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		4C9D49661376D55000D87ADD /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		4C9D496A1376D55000D87ADD /* LKAccountPanel-Info.plist */ = {isa = PBXFileReference; path = "LKAccountPanel-Info.plist"; sourceTree = "<group>"; };
+		4C9D496A1376D55000D87ADD /* LKAccountPanel-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "LKAccountPanel-Info.plist"; sourceTree = "<group>"; };
 		4C9D496C1376D55000D87ADD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		4C9D496E1376D55000D87ADD /* LKAccountPanel-Prefix.pch */ = {isa = PBXFileReference; path = "LKAccountPanel-Prefix.pch"; sourceTree = "<group>"; };
+		4C9D496E1376D55000D87ADD /* LKAccountPanel-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LKAccountPanel-Prefix.pch"; sourceTree = "<group>"; };
 		4C9D496F1376D55000D87ADD /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		4C9D49711376D55000D87ADD /* LKAccountPanelAppDelegate.h */ = {isa = PBXFileReference; path = LKAccountPanelAppDelegate.h; sourceTree = "<group>"; };
+		4C9D49711376D55000D87ADD /* LKAccountPanelAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LKAccountPanelAppDelegate.h; sourceTree = "<group>"; };
 		4C9D49721376D55000D87ADD /* LKAccountPanelAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LKAccountPanelAppDelegate.m; sourceTree = "<group>"; };
 		4C9D49751376D55000D87ADD /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainWindow.xib; sourceTree = "<group>"; };
 		4C9D497C1376D55000D87ADD /* LKAccountPanelTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LKAccountPanelTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
-		4C9D49841376D55000D87ADD /* LKAccountPanelTests-Info.plist */ = {isa = PBXFileReference; path = "LKAccountPanelTests-Info.plist"; sourceTree = "<group>"; };
+		4C9D49841376D55000D87ADD /* LKAccountPanelTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "LKAccountPanelTests-Info.plist"; sourceTree = "<group>"; };
 		4C9D49861376D55000D87ADD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		4C9D49881376D55000D87ADD /* LKAccountPanelTests-Prefix.pch */ = {isa = PBXFileReference; path = "LKAccountPanelTests-Prefix.pch"; sourceTree = "<group>"; };
+		4C9D49881376D55000D87ADD /* LKAccountPanelTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LKAccountPanelTests-Prefix.pch"; sourceTree = "<group>"; };
 		4C9D49891376D55000D87ADD /* LKAccountPanelTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LKAccountPanelTests.h; sourceTree = "<group>"; };
 		4C9D498B1376D55000D87ADD /* LKAccountPanelTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LKAccountPanelTests.m; sourceTree = "<group>"; };
+		4C9D49951376D56B00D87ADD /* LKAccountPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LKAccountPanel.h; path = LKAccountPanel/LKAccountPanel.h; sourceTree = "<group>"; };
+		4C9D49961376D56B00D87ADD /* LKAccountPanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LKAccountPanel.m; path = LKAccountPanel/LKAccountPanel.m; sourceTree = "<group>"; };
+		4C9D499B1376DCB000D87ADD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/LKAccountPanel.strings; sourceTree = "<group>"; };
+		4C9D499D1376DCC000D87ADD /* ja */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/LKAccountPanel.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,10 +82,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4C1A0A221378B883009D78F0 /* LKAccountPanel */ = {
+			isa = PBXGroup;
+			children = (
+				4C9D49951376D56B00D87ADD /* LKAccountPanel.h */,
+				4C9D49961376D56B00D87ADD /* LKAccountPanel.m */,
+				4C9D499C1376DCB000D87ADD /* LKAccountPanel.strings */,
+			);
+			name = LKAccountPanel;
+			sourceTree = "<group>";
+		};
 		4C9D49531376D54F00D87ADD = {
 			isa = PBXGroup;
 			children = (
-				4C9D49681376D55000D87ADD /* LKAccountPanel */,
+				4C1A0A221378B883009D78F0 /* LKAccountPanel */,
+				4C9D49681376D55000D87ADD /* TestApplication */,
 				4C9D49821376D55000D87ADD /* LKAccountPanelTests */,
 				4C9D49611376D55000D87ADD /* Frameworks */,
 				4C9D495F1376D55000D87ADD /* Products */,
@@ -105,7 +122,7 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		4C9D49681376D55000D87ADD /* LKAccountPanel */ = {
+		4C9D49681376D55000D87ADD /* TestApplication */ = {
 			isa = PBXGroup;
 			children = (
 				4C9D49711376D55000D87ADD /* LKAccountPanelAppDelegate.h */,
@@ -113,6 +130,7 @@
 				4C9D49741376D55000D87ADD /* MainWindow.xib */,
 				4C9D49691376D55000D87ADD /* Supporting Files */,
 			);
+			name = TestApplication;
 			path = LKAccountPanel;
 			sourceTree = "<group>";
 		};
@@ -197,6 +215,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				ja,
 			);
 			mainGroup = 4C9D49531376D54F00D87ADD;
 			productRefGroup = 4C9D495F1376D55000D87ADD /* Products */;
@@ -216,6 +235,7 @@
 			files = (
 				4C9D496D1376D55000D87ADD /* InfoPlist.strings in Resources */,
 				4C9D49761376D55000D87ADD /* MainWindow.xib in Resources */,
+				4C9D499A1376DCB000D87ADD /* LKAccountPanel.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -253,6 +273,7 @@
 			files = (
 				4C9D49701376D55000D87ADD /* main.m in Sources */,
 				4C9D49731376D55000D87ADD /* LKAccountPanelAppDelegate.m in Sources */,
+				4C9D49971376D56B00D87ADD /* LKAccountPanel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -297,6 +318,16 @@
 				4C9D49861376D55000D87ADD /* en */,
 			);
 			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		4C9D499C1376DCB000D87ADD /* LKAccountPanel.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4C9D499B1376DCB000D87ADD /* en */,
+				4C9D499D1376DCC000D87ADD /* ja */,
+			);
+			name = LKAccountPanel.strings;
+			path = LKAccountPanel;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -425,6 +456,7 @@
 				4C9D49911376D55000D87ADD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		4C9D49921376D55000D87ADD /* Build configuration list for PBXNativeTarget "LKAccountPanelTests" */ = {
 			isa = XCConfigurationList;
@@ -433,6 +465,7 @@
 				4C9D49941376D55000D87ADD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
