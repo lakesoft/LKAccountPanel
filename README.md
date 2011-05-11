@@ -3,7 +3,8 @@ Custom UIAlertView
 
 LKAccountPanel class can display custom UIAlertView to require username and password.
 
-![](raw/master/documents/LKAccountPanel-1.jpg)
+![](https://github.com/lakesoft/LKAccountPanel/raw/master/documents/LKAccountPanel-1.jpg)
+
 
 Usage
 -----
@@ -17,6 +18,12 @@ Only call the show method like below:
 	}];
 
 'result' argument of the blocks is for detecting whether OK button is pushed. If 'result' is YES then OK button is pushed.
+
+
+Customize
+---------
+
+You can change the placeholder label and the button label. Edit LKAccountPanel.strings file in each localized directory.
 
 
 Installation
