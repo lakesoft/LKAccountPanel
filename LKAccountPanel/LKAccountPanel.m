@@ -12,6 +12,38 @@
 
 static LKAccountPanel* accountPanel_ = nil;
 
+
+@interface LKAccountPanelBackgroundView : UIView {
+}
+@end
+
+@implementation LKAccountPanelBackgroundView
+
+- (id)initWithFrame:(CGRect)frame {
+    self = [super initWithFrame:frame];
+    if (self) {
+        self.backgroundColor = [UIColor clearColor];
+    }
+    return self;
+}
+
+- (void)drawRect:(CGRect)rect
+{
+    UIBezierPath* path = [UIBezierPath bezierPathWithRoundedRect:self.bounds
+                                                    cornerRadius:5.0];
+    [path moveToPoint:CGPointMake(0, self.bounds.size.height/2.0)];
+    [path addLineToPoint:CGPointMake(self.bounds.size.width-1.0,
+                                     self.bounds.size.height/2.0)];
+    [[UIColor whiteColor] set];
+    [path fill];
+    [[UIColor lightGrayColor] set];
+    [path stroke];
+}
+
+@end
+
+
+//------------------------------------------------------------------------------
 @interface LKAccountPanel()
 @property (nonatomic, retain) UIAlertView* alertView;
 @property (nonatomic, retain) void(^completionBlock)(BOOL result, NSString* username, NSString* password);
@@ -88,25 +120,26 @@ static LKAccountPanel* accountPanel_ = nil;
                           cancelButtonTitle:NSLocalizedStringFromTable(@"Cancel", LOCALIZED_STRING_TABLE, nil)
                           otherButtonTitles:NSLocalizedStringFromTable(@"OK", LOCALIZED_STRING_TABLE, nil), nil] autorelease];
 
+    LKAccountPanelBackgroundView* backgroundView =
+        [[[LKAccountPanelBackgroundView alloc]
+          initWithFrame:CGRectMake(15.0, 47.0, 255.0, 65)] autorelease];
+    [self.alertView addSubview:backgroundView];
+    
     self.usernameTextField = [[[UITextField alloc] initWithFrame:
-                               CGRectMake(20.0, 45.0, 245.0, 30.0)] autorelease];
+                               CGRectMake(20.0, 52.0, 245.0, 30.0)] autorelease];
     self.usernameTextField.placeholder = NSLocalizedStringFromTable(@"Username", LOCALIZED_STRING_TABLE, nil);
     self.usernameTextField.keyboardType = UIKeyboardTypeEmailAddress;
     self.usernameTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
-    self.usernameTextField.backgroundColor = [UIColor whiteColor];
-    self.usernameTextField.borderStyle = UITextBorderStyleBezel;
     self.usernameTextField.returnKeyType = UIReturnKeyNext;
     self.usernameTextField.delegate = self;
     [self.alertView addSubview:self.usernameTextField];
 
     self.passwordTextField = [[[UITextField alloc] initWithFrame:
-                               CGRectMake(20.0, 80.0, 245.0, 30.0)] autorelease];
+                               CGRectMake(20.0, 87.0, 245.0, 30.0)] autorelease];
     self.passwordTextField.placeholder = NSLocalizedStringFromTable(@"Password", LOCALIZED_STRING_TABLE, nil);
     self.passwordTextField.keyboardType = UIKeyboardTypeASCIICapable;
     self.passwordTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
     self.passwordTextField.secureTextEntry = YES;
-    self.passwordTextField.backgroundColor = [UIColor whiteColor];
-    self.passwordTextField.borderStyle = UITextBorderStyleBezel;
     self.passwordTextField.returnKeyType = UIReturnKeyDone;
     self.passwordTextField.delegate = self;
     [self.alertView addSubview:self.passwordTextField];
