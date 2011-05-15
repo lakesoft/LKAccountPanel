@@ -15,6 +15,7 @@
 @property (nonatomic, retain) IBOutlet UIWindow *window;
 
 - (IBAction)showAlert:(id)sender;
+- (IBAction)showAlert2:(id)sender;
 
 
 @end

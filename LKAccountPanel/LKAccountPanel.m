@@ -45,9 +45,15 @@ static LKAccountPanel* accountPanel_ = nil;
 
 //------------------------------------------------------------------------------
 @interface LKAccountPanel()
+@property (nonatomic, assign) BOOL finished;
+
 @property (nonatomic, retain) UIAlertView* alertView;
 @property (nonatomic, retain) void(^completionBlock)(BOOL result, NSString* username, NSString* password);
 
+// result holder
+@property (nonatomic, retain) NSString* username;
+@property (nonatomic, retain) NSString* password;
+@property (nonatomic, assign) BOOL ok;
 @end
 
 @implementation LKAccountPanel
@@ -55,9 +61,14 @@ static LKAccountPanel* accountPanel_ = nil;
 @synthesize usernameTextField;
 @synthesize passwordTextField;
 
+@synthesize finished = finished_;
+
 @synthesize alertView = alertView_;
 @synthesize completionBlock;
 
+@synthesize username = username_;
+@synthesize password = password_;
+@synthesize ok = ok_;
 
 //------------------------------------------------------------------------------
 #pragma mark -
@@ -80,6 +91,8 @@ static LKAccountPanel* accountPanel_ = nil;
 
 - (void)dealloc {
     [self _releaseObjects];
+    self.username = nil;
+    self.password = nil;
     [super dealloc];
 }
 
@@ -89,29 +102,41 @@ static LKAccountPanel* accountPanel_ = nil;
 //------------------------------------------------------------------------------
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    NSString* username = self.usernameTextField.text;
-    NSString* password = self.passwordTextField.text;
+    self.username = self.usernameTextField.text;
+    self.password = self.passwordTextField.text;
+
     if (buttonIndex == 1) {
-        if ([username length] == 0) {
-            username = nil;
+        if ([self.username length] == 0) {
+            self.username = nil;
         }
-        if ([password length] == 0) {
-            password = nil;
+        if ([self.password length] == 0) {
+            self.password = nil;
         }
     } else {
-        username = nil;
-        password = nil;
+        self.username = nil;
+        self.password = nil;
     }
-    self.completionBlock(buttonIndex == 1, username, password);
+    
+    self.ok = (buttonIndex == 1);
+    
+    if (self.completionBlock) {
+        self.completionBlock(self.ok, self.username, self.password);
+    }
+
     [self _releaseObjects];
+    self.finished = YES;
 }
 
 //------------------------------------------------------------------------------
 #pragma mark -
 #pragma mark Private
 //------------------------------------------------------------------------------
+
 - (void)_showWithTitle:(NSString*)title completion:(void(^)(BOOL result, NSString* username, NSString* password))completion;
 {
+    self.username = nil;
+    self.password = nil;
+
     self.completionBlock = completion;
     self.alertView =
         [[[UIAlertView alloc] initWithTitle:title
@@ -146,6 +171,16 @@ static LKAccountPanel* accountPanel_ = nil;
 
     [self.alertView show];
     [self.usernameTextField becomeFirstResponder];
+    
+}
+
+- (void)_blockUntilDone
+{
+    self.finished = NO;
+    while (!self.finished) {
+        [[NSRunLoop currentRunLoop]
+         runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.5]];
+    }
 }
 
 //------------------------------------------------------------------------------
@@ -168,14 +203,29 @@ static LKAccountPanel* accountPanel_ = nil;
 #pragma mark -
 #pragma mark API
 //------------------------------------------------------------------------------
-+ (void)showWithTitle:(NSString*)title completion:(void(^)(BOOL result, NSString* username, NSString* password))completion
++ (void)_initializeSingleton
 {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         accountPanel_ = [[LKAccountPanel alloc] init];
-    });
-    
+    });   
+}
+
++ (void)showWithTitle:(NSString*)title completion:(void(^)(BOOL result, NSString* username, NSString* password))completion
+{    
+    [self _initializeSingleton];
     [accountPanel_ _showWithTitle:title completion:completion];
+}
+
++ (BOOL)showWithTitle:(NSString*)title username:(NSString**)username password:(NSString**)password
+{
+    [self _initializeSingleton];
+    [accountPanel_ _showWithTitle:title completion:nil];
+    [accountPanel_ _blockUntilDone];
+    *username = accountPanel_.username;
+    *password = accountPanel_.password;
+    
+    return accountPanel_.ok;
 }
 
 @end

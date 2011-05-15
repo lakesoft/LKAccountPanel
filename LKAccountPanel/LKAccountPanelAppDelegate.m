@@ -73,6 +73,20 @@
                            NSLog(@"result: %d\nusername: %@\npassword: %@",
                                  result, username, password);
                        }];
+    NSLog(@"done1");
+}
+
+- (IBAction)showAlert2:(id)sender
+{
+    NSString* username;
+    NSString* password;
+    
+    BOOL result = [LKAccountPanel showWithTitle:@"Test2"
+                                       username:&username
+                                       password:&password];
+    NSLog(@"done2");
+    NSLog(@"result2: %d\nusername: %@\npassword: %@",
+          result, username, password);
 }
 
 @end
