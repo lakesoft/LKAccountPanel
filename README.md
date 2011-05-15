@@ -9,7 +9,11 @@ LKAccountPanel class can display custom UIAlertView to require username and pass
 Usage
 -----
 
-Only call the show method like below:
+There are two methods.
+
+(1) Asynchronous type
+
+example:
 
 	[LKAccountPanel showWithTitle:@"Test"
 		completion:^(BOOL result, NSString* username, NSString* password) {
@@ -17,7 +21,19 @@ Only call the show method like below:
 				result, username, password);
 	}];
 
-'result' argument of the blocks is for detecting whether OK button is pushed. If 'result' is YES then OK button is pushed.
+'result' argument of the blocks is for detecting whether OK button is pushed. If 'result' is YES then OK button is pushed. This method does not block current execution.
+
+(2) Synchronous type
+
+example:
+
+	BOOL result = [LKAccountPanel showWithTitle:@"Test2"
+									   username:&username
+									   password:&password];
+	NSLog(@"result2: %d\nusername: %@\npassword: %@",
+		result, username, password);
+
+This method block current execution.
 
 
 Customize
