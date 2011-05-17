@@ -10,9 +10,6 @@
 
 #define LOCALIZED_STRING_TABLE  @"LKAccountPanel"
 
-static LKAccountPanel* accountPanel_ = nil;
-
-
 @interface LKAccountPanelBackgroundView : UIView {
 }
 @end
@@ -44,11 +41,17 @@ static LKAccountPanel* accountPanel_ = nil;
 
 
 //------------------------------------------------------------------------------
+static LKAccountPanel* accountPanel_ = nil;
+static BOOL checkingEmptyEnabled_ = YES;
+
 @interface LKAccountPanel()
+@property (nonatomic, assign) BOOL showing;
 @property (nonatomic, assign) BOOL finished;
 
 @property (nonatomic, retain) UIAlertView* alertView;
 @property (nonatomic, retain) void(^completionBlock)(BOOL result, NSString* username, NSString* password);
+@property (nonatomic, retain) UITextField* usernameTextField;
+@property (nonatomic, retain) UITextField* passwordTextField;
 
 // result holder
 @property (nonatomic, retain) NSString* username;
@@ -58,13 +61,13 @@ static LKAccountPanel* accountPanel_ = nil;
 
 @implementation LKAccountPanel
 
-@synthesize usernameTextField;
-@synthesize passwordTextField;
-
+@synthesize showing = showing_;
 @synthesize finished = finished_;
 
 @synthesize alertView = alertView_;
 @synthesize completionBlock;
+@synthesize usernameTextField;
+@synthesize passwordTextField;
 
 @synthesize username = username_;
 @synthesize password = password_;
@@ -74,13 +77,6 @@ static LKAccountPanel* accountPanel_ = nil;
 #pragma mark -
 #pragma mark Initialization and deallocation
 //------------------------------------------------------------------------------
-- (id)init {
-    self = [super init];
-    if (self) {
-    }
-    return self;
-}
-
 - (void)_releaseObjects
 {
     self.usernameTextField = nil;
@@ -125,15 +121,54 @@ static LKAccountPanel* accountPanel_ = nil;
 
     [self _releaseObjects];
     self.finished = YES;
+
+    @synchronized (self) {
+        self.showing = NO;
+    }
 }
 
 //------------------------------------------------------------------------------
 #pragma mark -
 #pragma mark Private
 //------------------------------------------------------------------------------
+- (void)_setOkButtonEnabled:(BOOL)enabled
+{
+    if (!checkingEmptyEnabled_) {
+        return;
+    }
+
+    UIControl* okButton = nil;
+    for (UIView* view in self.alertView.subviews) {
+        if (view.tag == 2) {
+            okButton = (UIControl*)view;
+            break;
+        }
+    }
+    if (okButton) {
+        okButton.enabled = enabled;
+    }
+}
+
+- (void)_editingChanged:(id)sender
+{
+    BOOL okButtonEnabled = NO;
+    if ([self.usernameTextField.text length] > 0 &&
+        [self.passwordTextField.text length] > 0) {
+        okButtonEnabled = YES;
+    }
+    [self _setOkButtonEnabled:okButtonEnabled];
+}
 
 - (void)_showWithTitle:(NSString*)title completion:(void(^)(BOOL result, NSString* username, NSString* password))completion;
 {
+    @synchronized (self) {
+        if (self.showing) {
+            return; // prevent to show the alert at twice
+        } else {
+            self.showing = YES;
+        }
+    }
+
     self.username = nil;
     self.password = nil;
 
@@ -145,6 +180,9 @@ static LKAccountPanel* accountPanel_ = nil;
                           cancelButtonTitle:NSLocalizedStringFromTable(@"Cancel", LOCALIZED_STRING_TABLE, nil)
                           otherButtonTitles:NSLocalizedStringFromTable(@"OK", LOCALIZED_STRING_TABLE, nil), nil] autorelease];
 
+    // NSLog(@"%@", NSStringFromCGRect(self.alertView.frame));
+    // *NOTE* UIAlertView's frame is {{0,0},{0,0}} at this timing.  
+    
     LKAccountPanelBackgroundView* backgroundView =
         [[[LKAccountPanelBackgroundView alloc]
           initWithFrame:CGRectMake(15.0, 47.0, 255.0, 65)] autorelease];
@@ -157,6 +195,9 @@ static LKAccountPanel* accountPanel_ = nil;
     self.usernameTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
     self.usernameTextField.returnKeyType = UIReturnKeyNext;
     self.usernameTextField.delegate = self;
+    [self.usernameTextField addTarget:self
+                               action:@selector(_editingChanged:)
+                     forControlEvents:UIControlEventEditingChanged];
     [self.alertView addSubview:self.usernameTextField];
 
     self.passwordTextField = [[[UITextField alloc] initWithFrame:
@@ -167,11 +208,15 @@ static LKAccountPanel* accountPanel_ = nil;
     self.passwordTextField.secureTextEntry = YES;
     self.passwordTextField.returnKeyType = UIReturnKeyDone;
     self.passwordTextField.delegate = self;
+    [self.passwordTextField addTarget:self
+                               action:@selector(_editingChanged:)
+                     forControlEvents:UIControlEventEditingChanged];
     [self.alertView addSubview:self.passwordTextField];
 
     [self.alertView show];
     [self.usernameTextField becomeFirstResponder];
     
+    [self _setOkButtonEnabled:NO];
 }
 
 - (void)_blockUntilDone
@@ -181,6 +226,20 @@ static LKAccountPanel* accountPanel_ = nil;
         [[NSRunLoop currentRunLoop]
          runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.5]];
     }
+}
+
++ (void)_initializeSingleton
+{
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        accountPanel_ = [[LKAccountPanel alloc] init];
+    });   
+}
+
++ (BOOL)_isRunningInMainThread
+{
+    dispatch_queue_t currentQueue = dispatch_get_current_queue();
+    return (currentQueue == dispatch_get_main_queue());
 }
 
 //------------------------------------------------------------------------------
@@ -203,29 +262,42 @@ static LKAccountPanel* accountPanel_ = nil;
 #pragma mark -
 #pragma mark API
 //------------------------------------------------------------------------------
-+ (void)_initializeSingleton
-{
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        accountPanel_ = [[LKAccountPanel alloc] init];
-    });   
-}
-
 + (void)showWithTitle:(NSString*)title completion:(void(^)(BOOL result, NSString* username, NSString* password))completion
-{    
+{
     [self _initializeSingleton];
-    [accountPanel_ _showWithTitle:title completion:completion];
+
+    if ([self _isRunningInMainThread]) {
+        [accountPanel_ _showWithTitle:title completion:completion];
+    } else {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [accountPanel_ _showWithTitle:title completion:completion];            
+        });
+    }
 }
 
 + (BOOL)showWithTitle:(NSString*)title username:(NSString**)username password:(NSString**)password
 {
     [self _initializeSingleton];
-    [accountPanel_ _showWithTitle:title completion:nil];
-    [accountPanel_ _blockUntilDone];
-    *username = accountPanel_.username;
-    *password = accountPanel_.password;
     
+    if ([self _isRunningInMainThread]) {
+        [accountPanel_ _showWithTitle:title completion:nil];
+        [accountPanel_ _blockUntilDone];
+    } else {
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            [accountPanel_ _showWithTitle:title completion:nil];
+            [accountPanel_ _blockUntilDone];
+        });        
+    }
+    *username = accountPanel_.username;
+    *password = accountPanel_.password;    
     return accountPanel_.ok;
+}
+
++ (void)setCheckingEmptyEnabled:(BOOL)enabled
+{
+    @synchronized (self) {
+        checkingEmptyEnabled_ = enabled;
+    }
 }
 
 @end

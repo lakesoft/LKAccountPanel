@@ -66,17 +66,17 @@
     [super dealloc];
 }
 
-- (IBAction)showAlert:(id)sender
+- (IBAction)showAsyncInMain:(id)sender
 {
     [LKAccountPanel showWithTitle:@"Test"
                        completion:^(BOOL result, NSString* username, NSString* password) {
-                           NSLog(@"result: %d\nusername: %@\npassword: %@",
+                           NSLog(@"    result: %d\nusername: %@\npassword: %@",
                                  result, username, password);
                        }];
-    NSLog(@"done1");
+    NSLog(@"done: Async in main thread");
 }
 
-- (IBAction)showAlert2:(id)sender
+- (IBAction)showSyncInMain:(id)sender
 {
     NSString* username;
     NSString* password;
@@ -84,9 +84,37 @@
     BOOL result = [LKAccountPanel showWithTitle:@"Test2"
                                        username:&username
                                        password:&password];
-    NSLog(@"done2");
-    NSLog(@"result2: %d\nusername: %@\npassword: %@",
+    NSLog(@"done: Sync in main thread");
+    NSLog(@"    result: %d\nusername: %@\npassword: %@",
           result, username, password);
 }
+
+- (IBAction)showAsyncInOther:(id)sender
+{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [LKAccountPanel showWithTitle:@"Test"
+                           completion:^(BOOL result, NSString* username, NSString* password) {
+                               NSLog(@"    result: %d\nusername: %@\npassword: %@",
+                                     result, username, password);
+                           }];
+        NSLog(@"done: Async in other thread");        
+    });
+}
+
+- (IBAction)showSyncInOther:(id)sender
+{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSString* username;
+        NSString* password;
+        
+        BOOL result = [LKAccountPanel showWithTitle:@"Test2"
+                                           username:&username
+                                           password:&password];
+        NSLog(@"done: Sync in other thread");
+        NSLog(@"    result2: %d\nusername: %@\npassword: %@",
+              result, username, password);
+    });
+}
+
 
 @end
