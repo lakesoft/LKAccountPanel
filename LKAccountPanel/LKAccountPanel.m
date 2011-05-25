@@ -49,7 +49,7 @@ static BOOL checkingEmptyEnabled_ = YES;
 @property (nonatomic, assign) BOOL finished;
 
 @property (nonatomic, retain) UIAlertView* alertView;
-@property (nonatomic, retain) void(^completionBlock)(BOOL result, NSString* username, NSString* password);
+@property (nonatomic, copy) void(^completionBlock)(BOOL result, NSString* username, NSString* password);
 @property (nonatomic, retain) UITextField* usernameTextField;
 @property (nonatomic, retain) UITextField* passwordTextField;
 
