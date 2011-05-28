@@ -13,7 +13,7 @@ There are two methods.
 
 (1) Asynchronous type
 
-example:
+example1:
 
 	[LKAccountPanel showWithTitle:@"Test"
 		completion:^(BOOL result, NSString* username, NSString* password) {
@@ -22,6 +22,20 @@ example:
 	}];
 
 'result' argument of the blocks is for detecting whether OK button is pushed. If 'result' is YES then OK button is pushed. This method does not block current execution.
+
+
+example2:
+
+    [LKAccountPanel showWithTitle:@"Test"
+        username:@"default username"
+        password:@"default password"
+        completion:^(BOOL result, NSString* username, NSString* password) {
+            NSLog(@"result: %d\nusername: %@\npassword: %@",
+                result, username, password);
+    }];
+
+If there are default values for username and password, these values can be set as default values by passing username: and password:.
+
 
 (2) Synchronous type
 
@@ -33,7 +47,8 @@ example:
 	NSLog(@"result2: %d\nusername: %@\npassword: %@",
 		result, username, password);
 
-This method block current execution.
+This method blocks at the code. If username and password has not nil values, thease values are used as default values.
+
 
 
 Customize

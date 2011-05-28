@@ -54,8 +54,8 @@ static BOOL checkingEmptyEnabled_ = YES;
 @property (nonatomic, retain) UITextField* passwordTextField;
 
 // result holder
-@property (nonatomic, retain) NSString* username;
-@property (nonatomic, retain) NSString* password;
+@property (nonatomic, copy) NSString* username;
+@property (nonatomic, copy) NSString* password;
 @property (nonatomic, assign) BOOL ok;
 @end
 
@@ -159,7 +159,7 @@ static BOOL checkingEmptyEnabled_ = YES;
     [self _setOkButtonEnabled:okButtonEnabled];
 }
 
-- (void)_showWithTitle:(NSString*)title completion:(void(^)(BOOL result, NSString* username, NSString* password))completion;
+- (void)_showWithTitle:(NSString*)title username:(NSString*)username password:(NSString*)password completion:(void(^)(BOOL result, NSString* username, NSString* password))completion;
 {
     @synchronized (self) {
         if (self.showing) {
@@ -171,8 +171,8 @@ static BOOL checkingEmptyEnabled_ = YES;
 
     self.username = nil;
     self.password = nil;
-
     self.completionBlock = completion;
+
     self.alertView =
         [[[UIAlertView alloc] initWithTitle:title
                                     message:@"\n\n\n"
@@ -189,34 +189,45 @@ static BOOL checkingEmptyEnabled_ = YES;
     [self.alertView addSubview:backgroundView];
     
     self.usernameTextField = [[[UITextField alloc] initWithFrame:
-                               CGRectMake(20.0, 52.0, 245.0, 30.0)] autorelease];
+                               CGRectMake(20.0, 52.0, 245.0, 22.0)] autorelease];
     self.usernameTextField.placeholder = NSLocalizedStringFromTable(@"Username", LOCALIZED_STRING_TABLE, nil);
     self.usernameTextField.keyboardType = UIKeyboardTypeEmailAddress;
     self.usernameTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
     self.usernameTextField.returnKeyType = UIReturnKeyNext;
     self.usernameTextField.delegate = self;
+    self.usernameTextField.clearButtonMode = UITextFieldViewModeAlways;
     [self.usernameTextField addTarget:self
                                action:@selector(_editingChanged:)
                      forControlEvents:UIControlEventEditingChanged];
     [self.alertView addSubview:self.usernameTextField];
 
     self.passwordTextField = [[[UITextField alloc] initWithFrame:
-                               CGRectMake(20.0, 87.0, 245.0, 30.0)] autorelease];
+                               CGRectMake(20.0, 87.0, 245.0, 22.0)] autorelease];
     self.passwordTextField.placeholder = NSLocalizedStringFromTable(@"Password", LOCALIZED_STRING_TABLE, nil);
     self.passwordTextField.keyboardType = UIKeyboardTypeASCIICapable;
     self.passwordTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
     self.passwordTextField.secureTextEntry = YES;
     self.passwordTextField.returnKeyType = UIReturnKeyDone;
     self.passwordTextField.delegate = self;
+    self.passwordTextField.clearButtonMode = UITextFieldViewModeAlways;
     [self.passwordTextField addTarget:self
                                action:@selector(_editingChanged:)
                      forControlEvents:UIControlEventEditingChanged];
     [self.alertView addSubview:self.passwordTextField];
-
-    [self.alertView show];
-    [self.usernameTextField becomeFirstResponder];
     
-    [self _setOkButtonEnabled:NO];
+    if (username) {
+        self.usernameTextField.text = username;
+    }
+    if (password) {
+        self.passwordTextField.text = password;
+    }
+    [self _setOkButtonEnabled:(username && password)];
+    
+    
+    [self.alertView show];
+    [self.usernameTextField performSelector:@selector(becomeFirstResponder)
+                                 withObject:nil
+                                 afterDelay:0.4];
 }
 
 - (void)_blockUntilDone
@@ -262,17 +273,22 @@ static BOOL checkingEmptyEnabled_ = YES;
 #pragma mark -
 #pragma mark API
 //------------------------------------------------------------------------------
-+ (void)showWithTitle:(NSString*)title completion:(void(^)(BOOL result, NSString* username, NSString* password))completion
++ (void)showWithTitle:(NSString*)title username:(NSString*)username password:(NSString*)password completion:(void(^)(BOOL result, NSString* username, NSString* password))completion
 {
     [self _initializeSingleton];
 
     if ([self _isRunningInMainThread]) {
-        [accountPanel_ _showWithTitle:title completion:completion];
+        [accountPanel_ _showWithTitle:title username:username password:password completion:completion];
     } else {
         dispatch_async(dispatch_get_main_queue(), ^{
-            [accountPanel_ _showWithTitle:title completion:completion];            
+            [accountPanel_ _showWithTitle:title username:username password:password completion:completion];
         });
     }
+}
+
++ (void)showWithTitle:(NSString*)title completion:(void(^)(BOOL result, NSString* username, NSString* password))completion
+{
+    [self showWithTitle:title username:nil password:nil completion:completion];
 }
 
 + (BOOL)showWithTitle:(NSString*)title username:(NSString**)username password:(NSString**)password
@@ -280,11 +296,11 @@ static BOOL checkingEmptyEnabled_ = YES;
     [self _initializeSingleton];
     
     if ([self _isRunningInMainThread]) {
-        [accountPanel_ _showWithTitle:title completion:nil];
+        [accountPanel_ _showWithTitle:title username:*username password:*password completion:nil];
         [accountPanel_ _blockUntilDone];
     } else {
         dispatch_sync(dispatch_get_main_queue(), ^{
-            [accountPanel_ _showWithTitle:title completion:nil];
+            [accountPanel_ _showWithTitle:title username:*username password:*password completion:nil];
             [accountPanel_ _blockUntilDone];
         });        
     }
@@ -299,5 +315,6 @@ static BOOL checkingEmptyEnabled_ = YES;
         checkingEmptyEnabled_ = enabled;
     }
 }
+
 
 @end

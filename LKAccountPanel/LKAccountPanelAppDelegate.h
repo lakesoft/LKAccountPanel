@@ -13,6 +13,8 @@
 }
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;
+@property (nonatomic, retain) IBOutlet UITextField* usernameTextFiled;
+@property (nonatomic, retain) IBOutlet UITextField* passwordTextFiled;
 
 - (IBAction)showAsyncInMain:(id)sender;
 - (IBAction)showSyncInMain:(id)sender;

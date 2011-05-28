@@ -13,6 +13,7 @@
 
 
 @synthesize window=_window;
+@synthesize usernameTextFiled, passwordTextFiled;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -63,12 +64,31 @@
 - (void)dealloc
 {
     [_window release];
+    self.usernameTextFiled = nil;
+    self.passwordTextFiled = nil;
     [super dealloc];
+}
+
+- (NSString*)_getUsername
+{
+    if (self.usernameTextFiled.text && [self.usernameTextFiled.text length]>0) {
+        return [[self.usernameTextFiled.text copy] autorelease];
+    }
+    return nil;
+}
+- (NSString*)_getPassword
+{
+    if (self.passwordTextFiled.text && [self.passwordTextFiled.text length]>0) {
+        return [[self.passwordTextFiled.text copy] autorelease];
+    }
+    return nil;
 }
 
 - (IBAction)showAsyncInMain:(id)sender
 {
     [LKAccountPanel showWithTitle:@"Test"
+                         username:[self _getUsername]
+                         password:[self _getPassword]
                        completion:^(BOOL result, NSString* username, NSString* password) {
                            NSLog(@"    result: %d\nusername: %@\npassword: %@",
                                  result, username, password);
@@ -78,8 +98,8 @@
 
 - (IBAction)showSyncInMain:(id)sender
 {
-    NSString* username;
-    NSString* password;
+    NSString* username = [self _getUsername];
+    NSString* password = [self _getPassword];
     
     BOOL result = [LKAccountPanel showWithTitle:@"Test2"
                                        username:&username
@@ -91,8 +111,13 @@
 
 - (IBAction)showAsyncInOther:(id)sender
 {
+    NSString* username = [self _getUsername];
+    NSString* password = [self _getPassword];
+
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         [LKAccountPanel showWithTitle:@"Test"
+                             username:username
+                             password:password
                            completion:^(BOOL result, NSString* username, NSString* password) {
                                NSLog(@"    result: %d\nusername: %@\npassword: %@",
                                      result, username, password);
@@ -103,13 +128,15 @@
 
 - (IBAction)showSyncInOther:(id)sender
 {
+    NSString* username = [self _getUsername];
+    NSString* password = [self _getPassword];
+    
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        NSString* username;
-        NSString* password;
-        
+        NSString* u = [[username copy] autorelease];
+        NSString* p = [[password copy] autorelease];
         BOOL result = [LKAccountPanel showWithTitle:@"Test2"
-                                           username:&username
-                                           password:&password];
+                                           username:&u
+                                           password:&p];
         NSLog(@"done: Sync in other thread");
         NSLog(@"    result2: %d\nusername: %@\npassword: %@",
               result, username, password);

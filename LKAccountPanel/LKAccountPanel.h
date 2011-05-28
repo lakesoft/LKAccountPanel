@@ -14,6 +14,7 @@
 
 // API
 + (void)showWithTitle:(NSString*)title completion:(void(^)(BOOL result, NSString* username, NSString* password))completion;
++ (void)showWithTitle:(NSString*)title username:(NSString*)username password:(NSString*)password completion:(void(^)(BOOL result, NSString* username, NSString* password))completion;
 + (BOOL)showWithTitle:(NSString*)title username:(NSString**)username password:(NSString**)password;
 + (void)setCheckingEmptyEnabled:(BOOL)enabled;
 
