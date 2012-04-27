@@ -14,6 +14,7 @@
 
 @synthesize window=_window;
 @synthesize usernameTextFiled, passwordTextFiled;
+@synthesize passwordSwitch;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -141,6 +142,10 @@
         NSLog(@"    result2: %d\nusername: %@\npassword: %@",
               result, username, password);
     });
+}
+
+- (IBAction)changePasswordSwitch:(id)sender {
+    [LKAccountPanel setPasswordOnly:self.passwordSwitch.on];
 }
 
 

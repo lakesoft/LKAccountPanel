@@ -11,15 +11,18 @@
 #define LOCALIZED_STRING_TABLE  @"LKAccountPanel"
 
 @interface LKAccountPanelBackgroundView : UIView {
+    BOOL border_;
 }
 @end
 
 @implementation LKAccountPanelBackgroundView
 
-- (id)initWithFrame:(CGRect)frame {
+- (id)initWithFrame:(CGRect)frame border:(BOOL)border
+{
     self = [super initWithFrame:frame];
     if (self) {
         self.backgroundColor = [UIColor clearColor];
+        border_ = border;
     }
     return self;
 }
@@ -28,9 +31,13 @@
 {
     UIBezierPath* path = [UIBezierPath bezierPathWithRoundedRect:self.bounds
                                                     cornerRadius:5.0];
-    [path moveToPoint:CGPointMake(0, self.bounds.size.height/2.0)];
-    [path addLineToPoint:CGPointMake(self.bounds.size.width-1.0,
-                                     self.bounds.size.height/2.0)];
+    
+    if (border_) {
+        [path moveToPoint:CGPointMake(0, self.bounds.size.height/2.0)];
+        [path addLineToPoint:CGPointMake(self.bounds.size.width-1.0,
+                                         self.bounds.size.height/2.0)];
+    }
+
     [[UIColor whiteColor] set];
     [path fill];
     [[UIColor lightGrayColor] set];
@@ -43,6 +50,7 @@
 //------------------------------------------------------------------------------
 static LKAccountPanel* accountPanel_ = nil;
 static BOOL checkingEmptyEnabled_ = YES;
+static BOOL passwordOnly_ = NO;
 
 @interface LKAccountPanel()
 @property (nonatomic, assign) BOOL showing;
@@ -52,6 +60,8 @@ static BOOL checkingEmptyEnabled_ = YES;
 @property (nonatomic, copy) void(^completionBlock)(BOOL result, NSString* username, NSString* password);
 @property (nonatomic, retain) UITextField* usernameTextField;
 @property (nonatomic, retain) UITextField* passwordTextField;
+
+@property (nonatomic, assign) BOOL okButtonEnabled;
 
 // result holder
 @property (nonatomic, copy) NSString* username;
@@ -68,6 +78,7 @@ static BOOL checkingEmptyEnabled_ = YES;
 @synthesize completionBlock;
 @synthesize usernameTextField;
 @synthesize passwordTextField;
+@synthesize okButtonEnabled;
 
 @synthesize username = username_;
 @synthesize password = password_;
@@ -134,6 +145,7 @@ static BOOL checkingEmptyEnabled_ = YES;
 - (void)_setOkButtonEnabled:(BOOL)enabled
 {
     if (!checkingEmptyEnabled_) {
+        self.okButtonEnabled = YES;
         return;
     }
 
@@ -146,17 +158,18 @@ static BOOL checkingEmptyEnabled_ = YES;
     }
     if (okButton) {
         okButton.enabled = enabled;
+        self.okButtonEnabled = enabled;
     }
 }
 
 - (void)_editingChanged:(id)sender
 {
-    BOOL okButtonEnabled = NO;
-    if ([self.usernameTextField.text length] > 0 &&
+    BOOL enabled = NO;
+    if ((passwordOnly_ || [self.usernameTextField.text length] > 0) &&
         [self.passwordTextField.text length] > 0) {
-        okButtonEnabled = YES;
+        enabled = YES;
     }
-    [self _setOkButtonEnabled:okButtonEnabled];
+    [self _setOkButtonEnabled:enabled];
 }
 
 - (void)_showWithTitle:(NSString*)title username:(NSString*)username password:(NSString*)password completion:(void(^)(BOOL result, NSString* username, NSString* password))completion;
@@ -173,9 +186,19 @@ static BOOL checkingEmptyEnabled_ = YES;
     self.password = nil;
     self.completionBlock = completion;
 
+    CGRect backgroundRect;
+    NSString* space;
+    if (passwordOnly_) {
+        backgroundRect = CGRectMake(15.0, 47.0, 255.0, 30.0);
+        space = @"\n\n";
+    } else {
+        backgroundRect = CGRectMake(15.0, 47.0, 255.0, 65.0);
+        space = @"\n\n\n";
+    }
+
     self.alertView =
         [[[UIAlertView alloc] initWithTitle:title
-                                    message:@"\n\n\n"
+                                    message:space
                                    delegate:self 
                           cancelButtonTitle:NSLocalizedStringFromTable(@"Cancel", LOCALIZED_STRING_TABLE, nil)
                           otherButtonTitles:NSLocalizedStringFromTable(@"OK", LOCALIZED_STRING_TABLE, nil), nil] autorelease];
@@ -184,25 +207,28 @@ static BOOL checkingEmptyEnabled_ = YES;
     // *NOTE* UIAlertView's frame is {{0,0},{0,0}} at this timing.  
     
     LKAccountPanelBackgroundView* backgroundView =
-        [[[LKAccountPanelBackgroundView alloc]
-          initWithFrame:CGRectMake(15.0, 47.0, 255.0, 65)] autorelease];
+    [[[LKAccountPanelBackgroundView alloc] initWithFrame:backgroundRect border:!passwordOnly_] autorelease];
     [self.alertView addSubview:backgroundView];
     
-    self.usernameTextField = [[[UITextField alloc] initWithFrame:
-                               CGRectMake(20.0, 52.0, 245.0, 22.0)] autorelease];
-    self.usernameTextField.placeholder = NSLocalizedStringFromTable(@"Username", LOCALIZED_STRING_TABLE, nil);
-    self.usernameTextField.keyboardType = UIKeyboardTypeEmailAddress;
-    self.usernameTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
-    self.usernameTextField.returnKeyType = UIReturnKeyNext;
-    self.usernameTextField.delegate = self;
-    self.usernameTextField.clearButtonMode = UITextFieldViewModeAlways;
-    [self.usernameTextField addTarget:self
-                               action:@selector(_editingChanged:)
-                     forControlEvents:UIControlEventEditingChanged];
-    [self.alertView addSubview:self.usernameTextField];
+    CGRect textFieldRect = CGRectMake(20.0, 52.0, 245.0, 22.0);
+    
+    if (!passwordOnly_) {
+        self.usernameTextField = [[[UITextField alloc] initWithFrame:textFieldRect] autorelease];
+        self.usernameTextField.placeholder = NSLocalizedStringFromTable(@"Username", LOCALIZED_STRING_TABLE, nil);
+        self.usernameTextField.keyboardType = UIKeyboardTypeEmailAddress;
+        self.usernameTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
+        self.usernameTextField.returnKeyType = UIReturnKeyNext;
+        self.usernameTextField.delegate = self;
+        self.usernameTextField.clearButtonMode = UITextFieldViewModeAlways;
+        [self.usernameTextField addTarget:self
+                                   action:@selector(_editingChanged:)
+                         forControlEvents:UIControlEventEditingChanged];
+        [self.alertView addSubview:self.usernameTextField];
+        
+        textFieldRect.origin.y += 35.0;
+    }
 
-    self.passwordTextField = [[[UITextField alloc] initWithFrame:
-                               CGRectMake(20.0, 87.0, 245.0, 22.0)] autorelease];
+    self.passwordTextField = [[[UITextField alloc] initWithFrame:textFieldRect] autorelease];
     self.passwordTextField.placeholder = NSLocalizedStringFromTable(@"Password", LOCALIZED_STRING_TABLE, nil);
     self.passwordTextField.keyboardType = UIKeyboardTypeASCIICapable;
     self.passwordTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
@@ -221,13 +247,15 @@ static BOOL checkingEmptyEnabled_ = YES;
     if (password) {
         self.passwordTextField.text = password;
     }
-    [self _setOkButtonEnabled:(username && password)];
-    
+    [self _setOkButtonEnabled:((passwordOnly_ || username) && password)];
+
     
     [self.alertView show];
-    [self.usernameTextField performSelector:@selector(becomeFirstResponder)
-                                 withObject:nil
-                                 afterDelay:0.4];
+    
+    id target = passwordOnly_ ? self.passwordTextField : self.usernameTextField;
+    [target performSelector:@selector(becomeFirstResponder)
+                        withObject:nil
+                 afterDelay:0.4];
 }
 
 - (void)_blockUntilDone
@@ -262,8 +290,14 @@ static BOOL checkingEmptyEnabled_ = YES;
     if (textField == self.usernameTextField) {
         [self.passwordTextField becomeFirstResponder];
     } else if (textField == self.passwordTextField) {
-        [self.alertView dismissWithClickedButtonIndex:1 animated:YES];
-        [self alertView:self.alertView clickedButtonAtIndex:1];
+        if (self.okButtonEnabled) {
+            [self.alertView dismissWithClickedButtonIndex:1 animated:YES];
+            [self alertView:self.alertView clickedButtonAtIndex:1];
+            [self.usernameTextField resignFirstResponder];
+            [self.passwordTextField resignFirstResponder];
+        } else {
+            [self.usernameTextField becomeFirstResponder];
+        }
     }
     return YES;
 }
@@ -316,5 +350,11 @@ static BOOL checkingEmptyEnabled_ = YES;
     }
 }
 
++ (void)setPasswordOnly:(BOOL)passwordOnly
+{
+    @synchronized (self) {
+        passwordOnly_ = passwordOnly;
+    }    
+}
 
 @end

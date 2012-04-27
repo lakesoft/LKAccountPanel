@@ -15,11 +15,13 @@
 @property (nonatomic, retain) IBOutlet UIWindow *window;
 @property (nonatomic, retain) IBOutlet UITextField* usernameTextFiled;
 @property (nonatomic, retain) IBOutlet UITextField* passwordTextFiled;
+@property (nonatomic, retain) IBOutlet UISwitch* passwordSwitch;
 
 - (IBAction)showAsyncInMain:(id)sender;
 - (IBAction)showSyncInMain:(id)sender;
 - (IBAction)showAsyncInOther:(id)sender;
 - (IBAction)showSyncInOther:(id)sender;
+- (IBAction)changePasswordSwitch:(id)sender;
 
 
 @end

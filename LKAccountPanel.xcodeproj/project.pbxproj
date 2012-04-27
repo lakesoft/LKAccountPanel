@@ -36,6 +36,7 @@
 
 /* Begin PBXFileReference section */
 		4C055042138E27C700896EA3 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
+		4C7D3079143A9BCC001E2751 /* zh-Hans */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LKAccountPanel.strings"; sourceTree = "<group>"; };
 		4C9D495E1376D55000D87ADD /* LKAccountPanel.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LKAccountPanel.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C9D49621376D55000D87ADD /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		4C9D49641376D55000D87ADD /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -211,6 +212,9 @@
 /* Begin PBXProject section */
 		4C9D49551376D54F00D87ADD /* Project object */ = {
 			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0420;
+			};
 			buildConfigurationList = 4C9D49581376D54F00D87ADD /* Build configuration list for PBXProject "LKAccountPanel" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
@@ -218,6 +222,7 @@
 			knownRegions = (
 				en,
 				ja,
+				"zh-Hans",
 			);
 			mainGroup = 4C9D49531376D54F00D87ADD;
 			productRefGroup = 4C9D495F1376D55000D87ADD /* Products */;
@@ -327,6 +332,7 @@
 			children = (
 				4C9D499B1376DCB000D87ADD /* en */,
 				4C9D499D1376DCC000D87ADD /* ja */,
+				4C7D3079143A9BCC001E2751 /* zh-Hans */,
 			);
 			name = LKAccountPanel.strings;
 			path = LKAccountPanel;
