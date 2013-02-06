@@ -6,7 +6,7 @@
   Copyright 2011 __MyCompanyName__. All rights reserved.
 */
 
-"OK" = "还行";
-"Cancel" = "取消";
-"Username" = "用户名";
-"Password" = "密码";
+"OK" = "괜찮았던 것";
+"Cancel" = "취소";
+"Username" = "사용자 이름";
+"Password" = "암호";
